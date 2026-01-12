@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para Meryellen ✨</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: opacity 0.8s ease;
+      }
+
+      .loader-content {
+        text-align: center;
+      }
+
+      .loader-heart {
+        font-size: 80px;
+        animation: heartbeat 1.5s infinite;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.2);
+        }
+        50% {
+          transform: scale(1);
+        }
+      }
+
+      .loader-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        margin-top: 20px;
+        color: #ff6b9d;
+      }
+
+      .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        opacity: 0;
+        animation: fadeIn 2s ease-out 0.5s forwards;
+      }
+
+      .hero-bg-image {
+        position: relative;
+        overflow: hidden;
+        filter: grayscale(30%);
+      }
+
+      .hero-bg-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(10, 10, 10, 0.7),
+          rgba(26, 26, 26, 0.8)
+        );
+        z-index: 1;
+      }
+
+      .hero-bg-image::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at center,
+          transparent 0%,
+          rgba(10, 10, 10, 0.9) 100%
+        );
+        z-index: 2;
+      }
+
+      .hero-bg-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 8s ease-out;
+      }
+
+      .hero-bg-image:hover img {
+        transform: scale(1.1);
+      }
+
+      .hero-bg-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #444;
+        font-size: 0.8rem;
+        gap: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .hero-background {
+          grid-template-columns: 1fr;
+          grid-template-rows: repeat(3, 1fr);
+        }
+      }
+
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 107, 157, 0.5);
+        border-radius: 50%;
+        animation: particleFloat 20s infinite ease-in-out;
+      }
+
+      @keyframes particleFloat {
+        0%,
+        100% {
+          transform: translate(0, 0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--tx), var(--ty));
+          opacity: 0;
+        }
+      }
+
+      .hero-content {
+        text-align: center;
+        z-index: 2;
+        padding: 40px;
+      }
+
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(3rem, 8vw, 7rem);
+        font-weight: 300;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #fff 0%, #ff6b9d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 1.2s ease-out 1s backwards;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        font-weight: 300;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #aaa;
+        margin-bottom: 50px;
+        animation: fadeInUp 1.4s ease-out 1.2s backwards;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-20px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .gallery-section {
+        position: relative;
+        padding: 120px 40px;
+        background: linear-gradient(
+          180deg,
+          #0a0a0a 0%,
+          #1a1a1a 50%,
+          #0a0a0a 100%
+        );
+      }
+
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        text-align: center;
+        margin-bottom: 80px;
+        background: linear-gradient(135deg, #fff 0%, #ff6b9d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gallery-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        perspective: 1000px;
+      }
+
+      .photo-card {
+        position: relative;
+        aspect-ratio: 3/4;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.6s ease;
+        transform-style: preserve-3d;
+      }
+
+      .photo-card:hover {
+        transform: translateY(-20px) rotateY(5deg);
+      }
+
+      .photo-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 107, 157, 0.3),
+          rgba(212, 71, 124, 0.3)
+        );
+        z-index: 1;
+        transition: opacity 0.4s ease;
+      }
+
+      .photo-card:hover::before {
+        opacity: 0;
+      }
+
+      .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 1rem;
+        gap: 15px;
+      }
+
+      .photo-placeholder-icon {
+        font-size: 60px;
+        opacity: 0.5;
+      }
+
+      .photo-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 30px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        z-index: 2;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.3rem;
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+      }
+
+      .photo-card:hover .photo-caption {
+        transform: translateY(0);
+      }
+
+      .voucher-reveal {
+        position: relative;
+        padding: 120px 40px;
+        background: #0a0a0a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .reveal-button {
+        position: relative;
+        padding: 25px 60px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: transparent;
+        border: 2px solid #ff6b9d;
+        color: #ff6b9d;
+        border-radius: 50px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .reveal-button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: #ff6b9d;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: -1;
+      }
+
+      .reveal-button:hover {
+        color: #fff;
+        border-color: #ff6b9d;
+        box-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+      }
+
+      .reveal-button:hover::before {
+        width: 400px;
+        height: 400px;
+      }
+
+      .voucher-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        border-radius: 30px;
+        padding: 80px 60px;
+        box-shadow: 0 30px 80px rgba(255, 107, 157, 0.3);
+        border: 1px solid rgba(255, 107, 157, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .voucher-container::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 107, 157, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate 20s linear infinite;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .voucher-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .voucher-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .voucher-icon {
+        font-size: 80px;
+        margin-bottom: 30px;
+        display: inline-block;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .voucher-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #fff 0%, #ff6b9d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .voucher-subtitle {
+        font-size: 1.1rem;
+        color: #aaa;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .voucher-benefits {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        margin: 60px 0;
+      }
+
+      .benefit-item {
+        text-align: center;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 107, 157, 0.2);
+        transition: all 0.4s ease;
+      }
+
+      .benefit-item:hover {
+        background: rgba(255, 107, 157, 0.1);
+        transform: translateY(-10px);
+        border-color: rgba(255, 107, 157, 0.5);
+      }
+
+      .benefit-icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+
+      .benefit-text {
+        font-size: 1rem;
+        color: #ccc;
+        line-height: 1.6;
+      }
+
+      .love-letter {
+        position: relative;
+        padding: 120px 40px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      }
+
+      .letter-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 60px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+        border-left: 4px solid #ff6b9d;
+      }
+
+      .letter-text {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.4rem;
+        line-height: 2;
+        color: #ccc;
+        margin-bottom: 30px;
+      }
+
+      .signature {
+        text-align: right;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.8rem;
+        color: #ff6b9d;
+        margin-top: 40px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      footer {
+        text-align: center;
+        padding: 60px 40px;
+        background: #0a0a0a;
+        color: #666;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+      }
+
+      @media (max-width: 768px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .voucher-container {
+          padding: 50px 30px;
+        }
+
+        .letter-content {
+          padding: 40px 30px;
+        }
+
+        .voucher-benefits {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader" id="loader">
+      <div class="loader-content">
+        <div class="loader-heart">💕</div>
+        <div class="loader-text">Carregando sua surpresa...</div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-background">
+        <div class="hero-bg-image">
+          <!-- Substitua o comentário abaixo pela tag img com sua foto -->
+          <img src="foto2.jpg" alt="Nossa foto 1" />
+          <div class="hero-bg-placeholder">
+            <div style="font-size: 40px; opacity: 0.3">📷</div>
+            <div>foto3.jpg</div>
+          </div>
+        </div>
+        <div class="hero-bg-image">
+          <img src="foto3.jpg" alt="Nossa foto 2" />
+          <div class="hero-bg-placeholder">
+            <div style="font-size: 40px; opacity: 0.3">📷</div>
+            <div>foto3.jpg</div>
+          </div>
+        </div>
+        <div class="hero-bg-image">
+          <img src="foto1.jpg" alt="Nossa foto 3" />
+          <div class="hero-bg-placeholder">
+            <div style="font-size: 40px; opacity: 0.3">📷</div>
+            <div>foto1.jpg</div>
+          </div>
+        </div>
+      </div>
+      <div class="particles" id="particles"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Meryellen</h1>
+        <p class="hero-subtitle">Um presente feito com amor</p>
+      </div>
+      <div class="scroll-indicator">
+        <svg width="30" height="50" viewBox="0 0 30 50">
+          <rect
+            x="5"
+            y="5"
+            width="20"
+            height="35"
+            rx="10"
+            fill="none"
+            stroke="#ff6b9d"
+            stroke-width="2"
+          />
+          <circle cx="15" cy="15" r="3" fill="#ff6b9d">
+            <animate
+              attributeName="cy"
+              from="15"
+              to="30"
+              dur="1.5s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              from="1"
+              to="0"
+              dur="1.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
+      </div>
+    </section>
+
+    <!-- <section class="gallery-section">
+      <h2 class="section-title">Nossa História</h2>
+      <div class="gallery-grid">
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <div class="photo-placeholder-icon">📷</div>
+            <img src="foto3.jpg" alt="Nós" />
+
+            <div style="font-size: 0.8rem; opacity: 0.5">
+              Adicione sua foto aqui
+            </div>
+          </div>
+          <div class="photo-caption">Momentos eternos</div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <div class="photo-placeholder-icon">📷</div>
+            <img src="foto2.jpg" alt="Nós" />
+
+            <div style="font-size: 0.8rem; opacity: 0.5">
+              Adicione sua foto aqui
+            </div>
+          </div>
+          <div class="photo-caption">Amor verdadeiro</div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <div class="photo-placeholder-icon">📷</div>
+            <img src="foto1.jpg" alt="Nós" />
+
+            <div style="font-size: 0.8rem; opacity: 0.5">
+              Adicione sua foto aqui
+            </div>
+          </div>
+          <div class="photo-caption">Para sempre juntos</div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="voucher-reveal">
+      <button class="reveal-button" onclick="revealVoucher()" id="revealBtn">
+        ✨ Revelar Presente
+      </button>
+    </section>
+
+    <section class="voucher-reveal hidden" id="voucherSection">
+      <div class="voucher-container">
+        <div class="voucher-content">
+          <div class="voucher-header">
+            <div class="voucher-icon">🌸</div>
+            <h2 class="voucher-title">Voucher 2h SPA Exclusivo</h2>
+            <p class="voucher-subtitle">Dedicado especialmente para você</p>
+          </div>
+
+          <div class="voucher-benefits">
+            <div class="benefit-item">
+              <div class="benefit-icon">🔥</div>
+              <div class="benefit-text">
+                Massagem Relaxante com Pedras Quentes
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">🦶</div>
+              <div class="benefit-text">Massagem nos Pés</div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">✨</div>
+              <div class="benefit-text">Massagem no Rosto</div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">🍰</div>
+              <div class="benefit-text">Lanche Incluso</div>
+            </div>
+          </div>
+
+          <!-- <div
+            style="
+              text-align: center;
+              padding: 40px;
+              background: rgba(255, 107, 157, 0.1);
+              border-radius: 15px;
+              margin-top: 40px;
+            "
+          >
+            <p style="font-size: 1.2rem; color: #ff6b9d; letter-spacing: 2px">
+              🎁 VÁLIDO QUANDO VOCÊ QUISER 🎁
+            </p>
+          </div> -->
+          <div
+            style="
+              text-align: center;
+              padding: 40px;
+              background: rgba(255, 107, 157, 0.1);
+              border-radius: 15px;
+              margin-top: 40px;
+            "
+          >
+            <p
+              style="
+                font-size: 1.2rem;
+                color: #ff6b9d;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+              "
+            >
+              🎁 VÁLIDO QUANDO VOCÊ QUISER 🎁
+            </p>
+            <button
+              onclick="downloadVoucher()"
+              style="
+                display: inline-block;
+                padding: 15px 40px;
+                background: linear-gradient(135deg, #ff6b9d, #d4477c);
+                color: white;
+                border: none;
+                border-radius: 50px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1rem;
+              "
+            >
+              📥 BAIXAR VOUCHER
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="love-letter">
+      <div class="letter-content">
+        <p class="letter-text">
+          Amor, você é a luz que ilumina meus dias e minhas noites e a razão do
+          meu sorriso. Cada momento ao seu lado é um presente, e hoje quero
+          retribuir com algo especial.
+        </p>
+        <p class="letter-text">
+          Este voucher é apenas uma pequena demonstração do quanto você
+          significa para mim. Você merece ser mimada, cuidada e lembrada todos
+          os dias do quão incrível você é.
+        </p>
+        <p class="letter-text">
+          Que este dia seja repleto de alegria, amor e momentos que ficarão
+          guardados para sempre em nossos corações. Você é extraordinária, e sou
+          privilegiado por ter você na minha vida.
+        </p>
+        <div class="signature">
+          Com todo meu amor,<br />
+          Seu apaixonado e futuro marido 💕
+        </div>
+      </div>
+    </section>
+
+    <footer>Feito com amor infinito • 2026</footer>
+
+    <script>
+      // Remover loader
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("loader").style.opacity = "0";
+          setTimeout(() => {
+            document.getElementById("loader").style.display = "none";
+          }, 800);
+        }, 1500);
+      });
+
+      // Criar partículas
+      function createParticles() {
+        const container = document.getElementById("particles");
+        for (let i = 0; i < 50; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.setProperty(
+            "--tx",
+            (Math.random() - 0.5) * 500 + "px"
+          );
+          particle.style.setProperty(
+            "--ty",
+            (Math.random() - 0.5) * 500 + "px"
+          );
+          particle.style.animationDelay = Math.random() * 20 + "s";
+          container.appendChild(particle);
+        }
+      }
+
+      createParticles();
+
+      // Revelar voucher
+      function revealVoucher() {
+        const btn = document.getElementById("revealBtn");
+        const section = document.getElementById("voucherSection");
+
+        btn.style.transform = "scale(0)";
+        btn.style.opacity = "0";
+
+        setTimeout(() => {
+          btn.parentElement.style.display = "none";
+          section.classList.remove("hidden");
+          section.scrollIntoView({ behavior: "smooth" });
+        }, 400);
+      }
+
+      // Parallax suave
+      document.addEventListener("mousemove", (e) => {
+        const cards = document.querySelectorAll(".photo-card");
+        const mouseX = e.clientX / window.innerWidth - 0.5;
+        const mouseY = e.clientY / window.innerHeight - 0.5;
+
+        cards.forEach((card, index) => {
+          const speed = (index + 1) * 0.5;
+          const x = mouseX * speed * 20;
+          const y = mouseY * speed * 20;
+          card.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+
+      // Animação de scroll reveal
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".photo-card, .benefit-item").forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(50px)";
+        el.style.transition = "all 0.8s ease";
+        observer.observe(el);
+      });
+
+      function downloadVoucher() {
+        const a = document.createElement("a");
+        a.href = "voucher.jpeg";
+        a.download = "Voucher_SPA_Meryellen.jpeg";
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    </script>
+  </body>
+</html>
